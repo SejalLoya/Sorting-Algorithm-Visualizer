@@ -5,3 +5,4 @@ This visualizer takes in random list of numbers, and then can be sorted using Bu
 Reference : For creating this project, I've referred to Tech with Tim channel on Youtube.
 Link for reference is : https://www.youtube.com/c/TechWithTim
 
+I've also created an entire report which includes step by step process of building this project.
