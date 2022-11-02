@@ -61,7 +61,7 @@ def draw(draw_info, algo_name, ascending ):
 	controls = draw_info.FONT.render("R - Reset | SPACE - Start Sorting | A - Ascending order | D - Descending order", 1, draw_info.BLACK)
 	draw_info.window.blit(controls, (draw_info.width/2 - controls.get_width()/2 , 55))
 
-	sorting = draw_info.FONT.render("I - Insertion Sort | B - Bubble Sort", 1, draw_info.BLACK)
+	sorting = draw_info.FONT.render("I - Insertion Sort | B - Bubble Sort | S - Selection Sort", 1, draw_info.BLACK)
 	draw_info.window.blit(sorting, (draw_info.width/2 - sorting.get_width()/2, 75))
 	draw_list(draw_info)
 	pygame.display.update()
@@ -134,6 +134,24 @@ def insertion_sort(draw_info, ascending=True):
 			yield True
 
 	return lst
+
+
+def selection_sort(draw_info, ascending=True):
+    lst = draw_info.lst
+
+    for ind in range(len(lst)):
+        min_index = ind
+ 
+        for jn in range(ind + 1, len(lst)):
+            # select the minimum element in every iteration
+            if (lst[jn]<lst[min_index] and ascending) or (lst[jn]>lst[min_index] and not ascending):
+                min_index = jn
+         # swapping the elements to sort the array
+        (lst[ind], lst[min_index]) = (lst[min_index], lst[ind])
+        draw_list(draw_info, {ind:draw_info.GREEN, min_index: draw_info.RED}, True)
+        yield True
+    return lst
+
 #main driver code
 
 def main():
@@ -155,8 +173,10 @@ def main():
 	sorting_algorithm = bubble_sort
 	sorting_algo_name = "Bubble Sort"
 	sorting_algorithm_generator = None
+
+
 	while run:
-		clock.tick(60)   #max num of time this loop can run in a second
+		clock.tick(6)   #max num of time this loop can run in a second
 
 		if sorting:
 			try:
@@ -197,6 +217,10 @@ def main():
 			elif event.key == pygame.K_b and not sorting:
 				sorting_algorithm = bubble_sort
 				sorting_algo_name = "Bubble Sort"
+				ascending = False
+			elif event.key == pygame.K_s and not sorting:
+				sorting_algorithm = selection_sort
+				sorting_algo_name = "Selection Sort"
 				ascending = False
 	pygame.quit()	
 
